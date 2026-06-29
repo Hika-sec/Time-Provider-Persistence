@@ -10,7 +10,6 @@ extern "C" {
         PWSTR pwszDllName,
         void* ptpPI
     ) {
-        
         // PAYLOAD ENTRY POINT - Runs in svchost.exe (Local System)
         // Replace this section with your malicious code
         return ERROR_SUCCESS;
